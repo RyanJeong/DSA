@@ -1,5 +1,7 @@
 #   Linked List<br>
-##  Key Differences Between ArrayList and Linked List<br>
+* Is able to grow in size as needed<br>
+* Does not require the shifting of items during insertions and deletions<br>
+##  Key Differences Between Array List and Linked List<br>
 
 |                | Array List                                                                                                              | Linked List |
 |----------------|-------------------------------------------------------------------------------------------------------------------------|-------------|
