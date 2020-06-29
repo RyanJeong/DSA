@@ -7,7 +7,7 @@ typedef struct node {
 } Node;
 
 typedef struct linkedListType {
-    int  currentElementCount;
+    int  currentNodeCount;
     Node header;
 } LinkedList;
 

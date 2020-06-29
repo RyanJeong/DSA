@@ -1,6 +1,15 @@
 #   Linked List<br>
+> In computer science, a **linked list** is a data structure consisting of a group of nodes which together represent a sequence. Under the simplest form, each node is composed of a datum and a reference (in other words, a link) to the next node in the sequence; more complex variants add additional links. This structure allows for efficient insertion or removal of elements from any position in the sequence.<br>
+
+##  Basic Concepts and Nomewnclature<br>
+* Each record of a linked list is often called an **element** or **node**.<br>
+* The field of each node that contains the address of the next node is usually called the ** *next* link** or ** *next* pointer**. The remaining fields are known as the **data, information, value, cargo, or payload** fields.<br>
+* The **head** of a list is its first node. The **tail** of a list may refer either to the rest of the list after the head, or to the last node in the list. In Lisp and some derived languages, the next node may be called the **cdr** (pronounced could-er) of the list, while the payload of the head node may be called the car.<br>
+
+##  Features<br>
 * Is able to grow in size as needed<br>
 * Does not require the shifting of items during insertions and deletions<br>
+
 ##  Key Differences Between Array List and Linked List<br>
 
 |                | Array List                                                                                                              | Linked List |
