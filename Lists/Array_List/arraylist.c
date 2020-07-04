@@ -6,18 +6,15 @@
 
 ArrayList *createArrayList(int size)
 {
-/*
- * pArrayList : Pointer to the array list which memory allocated.
- */
     ArrayList *ptrArrayList;
 
     ptrArrayList = NULL;
     if (size > 0) {
         ptrArrayList = (ArrayList *) malloc(sizeof(ArrayList));
         if (ptrArrayList != NULL) {
-            ptrArrayList->maxNodeCount  = size;
+            ptrArrayList->maxNodeCount     = size;
             ptrArrayList->currentNodeCount = 0;
-            ptrArrayList->ptrNode      = (ArrayListNode *) malloc(sizeof(ArrayListNode) * size);
+            ptrArrayList->ptrNode          = (ArrayListNode *) malloc(sizeof(ArrayListNode) * size);
             if (ptrArrayList->ptrNode != NULL) {
                 memset(ptrArrayList->ptrNode, 0, sizeof(ArrayListNode) * size);
             } else {
@@ -47,9 +44,6 @@ void deleteArrayList(ArrayList *ptrArrayList)
 
 int isArrayListFull(ArrayList *ptrArrayList)
 {
-/*
- * result : Function execution result which can be a FALSE or a TRUE.
- */
     int result;
     
     result = FALSE;
@@ -64,9 +58,6 @@ int isArrayListFull(ArrayList *ptrArrayList)
 
 int isArrayListEmpty(ArrayList *ptrArrayList)
 {
-/*
- * result : Function execution result which can be a FALSE or a TRUE.
- */
     int result;
 
     result = FALSE;
@@ -81,16 +72,11 @@ int isArrayListEmpty(ArrayList *ptrArrayList)
 
 int addNode(ArrayList *ptrArrayList, int position, ArrayListNode node)
 {
-/*
- * result: Function execution result which can be a SUCCESS or a FAILURE.
- * i     : A loop control variable.
- * count : the value of the member called currentNodeCount from the struct that ptrArrayList points to.
- */
     int result, i, count;
     
     result = FAILURE;
-    count  = getArrayListLength(ptrArrayList);
     if (ptrArrayList != NULL) {
+        count = getArrayListLength(ptrArrayList);
         if (isArrayListFull(ptrArrayList) == FALSE) {
             if (position >= 0 && position <= count) {   /* <= count */
                 for (i = count-1; i >= position; i--) {
@@ -126,16 +112,11 @@ int addNodeLast(ArrayList *ptrArrayList, ArrayListNode node)
 
 int removeNode(ArrayList *ptrArrayList, int position)
 {
-/*
- * result : Function execution result which can be a SUCCESS or a FAILURE.
- * i      : A loop control variable.
- * count  : the value of the member called currentNodeCount from the struct that ptrArrayList points to.
- */
     int result, i, count;
 
     result = FAILURE;
-    count  = getArrayListLength(ptrArrayList);
     if (ptrArrayList != NULL) {
+        count = getArrayListLength(ptrArrayList);
         if (isArrayListEmpty(ptrArrayList) == FALSE) {
             if (position >= 0 && position < count) {   /* < count */
                 for (i = position; i < count-1; i++) {
@@ -167,9 +148,6 @@ void removeAll(ArrayList *ptrArrayList)
 
 int getArrayListLength(ArrayList *ptrArrayList)
 {
-/*
- * result: Function execution result which can be a 0 or current number of nodes.
- */
     int result;
     
     result = 0;
@@ -182,9 +160,6 @@ int getArrayListLength(ArrayList *ptrArrayList)
 
 int getArrayListCapacity(ArrayList *ptrArrayList)
 {
-/*
- * result: Function execution result which can be a 0 or current number of nodes.
- */
     int result;
 
     result = 0;
@@ -197,16 +172,12 @@ int getArrayListCapacity(ArrayList *ptrArrayList)
 
 ArrayListNode *getNode(ArrayList *ptrArrayList, int position)
 {
-/*
- * ptrNode : An address of node to be returned.
- * count   : the value of the member called currentNodeCount from the struct that ptrArrayList points to.
- */
     ArrayListNode *ptrNode;
     int           count;
 
     ptrNode = NULL;
-    count   = getArrayListLength(ptrArrayList);
     if (ptrArrayList != NULL) {
+        count = getArrayListLength(ptrArrayList);
         if (isArrayListEmpty(ptrArrayList) == FALSE) {
             if (position >= 0 && position < count) {   /* < count */
                 ptrNode = &(ptrArrayList->ptrNode[position]);
@@ -221,33 +192,4 @@ ArrayListNode *getNode(ArrayList *ptrArrayList, int position)
     }
 
     return ptrNode;
-}
-
-void printArrayList(ArrayList *ptrArrayList)
-{
-/*
- * i        : A loop control variable.
- * count    : the value of the member called currentNodeCount from the struct that ptrArrayList points to.
- * maxCount : the value of the member called maxNodeCount from the struct that ptrArrayList points to.
- */
-    int i, count, maxCount;
-
-    count    = getArrayListLength(ptrArrayList);
-    maxCount = getArrayListCapacity(ptrArrayList);
-    if (ptrArrayList != NULL) {
-        printf("Maximum number of nodes: %d\n"
-               "Current number of nodes: %d\n", 
-               ptrArrayList->maxNodeCount,
-               ptrArrayList->currentNodeCount);
-        for (i = 0; i < count; i++) {
-            printf("[index: %3d], %d\n", i, getNode(ptrArrayList, i)->data);
-        }
-        while (i < maxCount) {
-            printf("[index: %3d], EMPTY\n", i++);
-        }
-    } else {
-        printf("Create an array list before execute this function.\n");
-    }
-
-    return;
 }

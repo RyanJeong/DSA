@@ -2,9 +2,11 @@
 
 #include "arraylist.h"
 
+void printArrayList(ArrayList *);
+
 int main(void)
 {
-    ArrayList     *pArrayList;
+    ArrayList *pArrayList;
 
     pArrayList = createArrayList(6);
     if (pArrayList != NULL) {
@@ -78,4 +80,28 @@ int main(void)
     }
 
     return 0;
+}
+
+void printArrayList(ArrayList *ptrArrayList)
+{
+    int i, count, maxCount;
+
+    if (ptrArrayList != NULL) {
+        count    = getArrayListLength(ptrArrayList);
+        maxCount = getArrayListCapacity(ptrArrayList);
+        printf("Maximum number of nodes: %d\n"
+               "Current number of nodes: %d\n", 
+               ptrArrayList->maxNodeCount,
+               ptrArrayList->currentNodeCount);
+        for (i = 0; i < count; i++) {
+            printf("[index: %3d], %d\n", i, getNode(ptrArrayList, i)->data);
+        }
+        while (i < maxCount) {
+            printf("[index: %3d], EMPTY\n", i++);
+        }
+    } else {
+        printf("Create an array list before execute this function.\n");
+    }
+
+    return;
 }

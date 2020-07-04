@@ -31,5 +31,5 @@ void          removeAll(ArrayList *);
 int           getArrayListLength(ArrayList *);
 int           getArrayListCapacity(ArrayList *);
 ArrayListNode *getNode(ArrayList *, int);
-void          printArrayList(ArrayList *);
+
 #endif
