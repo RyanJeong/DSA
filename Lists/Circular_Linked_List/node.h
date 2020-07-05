@@ -6,10 +6,10 @@ typedef struct node {
     struct node *link;
 } Node;
 
-/* with node header */
-typedef struct linkedListType {
+/* with head pointer to node */
+typedef struct {
     int  currentNodeCount;
-    Node header;
-} LinkedList;
+    Node *head;
+} CircularLinkedList;
 
 #endif

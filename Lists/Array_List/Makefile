@@ -1,7 +1,7 @@
 CC=cc
 CFLAGS=-g -ansi -Wall
 OBJS=obj/main.o obj/arraylist.o
-TARGET=arraylist
+TARGET=Array_List
 
 all: $(TARGET)
 

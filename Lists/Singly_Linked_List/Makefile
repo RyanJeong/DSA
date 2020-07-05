@@ -1,7 +1,7 @@
 CC=cc
 CFLAGS=-g -ansi -Wall
 OBJS=obj/main.o obj/linkedlist.o
-TARGET=run
+TARGET=SinglyLinkedList
 
 all: $(TARGET)
 

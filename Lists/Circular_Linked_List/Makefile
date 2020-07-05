@@ -1,7 +1,7 @@
 CC=cc
 CFLAGS=-g -ansi -Wall
 OBJS=obj/main.o
-TARGET=run
+TARGET=Circular_Linked_List
 
 all: $(TARGET)
 
