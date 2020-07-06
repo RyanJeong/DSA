@@ -13,9 +13,9 @@ enum {
 
 LinkedList *createLinkedList(void);
 void       deleteLinkedList(LinkedList *);
-int        isLinkedListEmpty(LinkedList *);
+int        isListEmpty(LinkedList *);
 int        addNode(LinkedList *, int, Node);
 int        removeNode(LinkedList *, int);
-Node       *getLinkedListNode(LinkedList *, int);
+Node       *getNode(LinkedList *, int);
 
 #endif

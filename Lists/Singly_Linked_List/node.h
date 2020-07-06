@@ -3,12 +3,12 @@
 
 typedef struct node {
     int         data;
-    struct node *link;
+    struct node *next;
 } Node;
 
 /* with node header */
-typedef struct linkedListType {
-    int  currentNodeCount;
+typedef struct {
+    int  nodes; /* current number of nodes */
     Node header;
 } LinkedList;
 

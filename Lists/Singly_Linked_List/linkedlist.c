@@ -7,14 +7,14 @@
 
 LinkedList *createLinkedList(void)
 {
-    LinkedList *ptrLinkedList;
+    LinkedList *pList;
 
-    ptrLinkedList = NULL;
-    ptrLinkedList = (LinkedList *) malloc(sizeof(LinkedList));
-    if (ptrLinkedList != NULL) {
-        memset(ptrLinkedList, 0, sizeof(LinkedList));
+    pList = NULL;
+    pList = (LinkedList *) malloc(sizeof(LinkedList));
+    if (pList != NULL) {
+        memset(pList, 0, sizeof(LinkedList));
 
-        return ptrLinkedList;
+        return pList;
     } else {
         printf("[ERROR] createLinkedList() - Memory allocation failed.\n");
         
@@ -22,59 +22,54 @@ LinkedList *createLinkedList(void)
     }
 }
 
-void deleteLinkedList(LinkedList *ptrLinkedList)
+void deleteLinkedList(LinkedList *pList)
 {
     int count;
     
-    if (ptrLinkedList != NULL) {
-        count = ptrLinkedList->currentNodeCount;
+    if (pList != NULL) {
+        count = pList->nodes;
         while (count--) {
-            /*
-            printf("%d, remove %d\n", count, getLinkedListNode(ptrLinkedList, 0)->data);
-            */
-            removeNode(ptrLinkedList, 0);
+            removeNode(pList, 0);
         }
-        free(ptrLinkedList);
+        free(pList);
     }
 
     return;
 }
 
-int isLinkedListEmpty(LinkedList *ptrLinkedList)
+int isListEmpty(LinkedList *pList)
 {
     int result;
 
-    result = FALSE;
-    if (ptrLinkedList != NULL) {
-        if (ptrLinkedList->currentNodeCount == 0) {
-            result = TRUE;
-        }
+    if (pList != NULL && pList->nodes == 0) {
+        result = TRUE;
+    } else {
+        result = FALSE;
     }
 
     return result;
 }
 
-int addNode(LinkedList *ptrLinkedList, int position, Node node)
+int addNode(LinkedList *pList, int position, Node node)
 {
     int  result, i, count;
     Node *prev, *newNode;
 
     result = FAILURE;
-    prev = newNode = NULL;
-    if (ptrLinkedList != NULL) {
-        count = ptrLinkedList->currentNodeCount;
+    if (pList != NULL) {
+        count = pList->nodes;
         if (position >= 0 && position <= count) {   /* <= count */
             newNode = (Node *) malloc(sizeof(Node));
             if (newNode != NULL) {
-                *newNode = node;
-                newNode->link = NULL;
-                prev = &(ptrLinkedList->header);
+                *newNode      = node;
+                newNode->next = NULL;
+                prev = &(pList->header);
                 for (i = 0; i < position; i++) {
-                    prev = prev->link;
+                    prev = prev->next;
                 }
-                newNode->link = prev->link;
-                prev->link = newNode;
-                ptrLinkedList->currentNodeCount++;
+                newNode->next = prev->next;
+                prev->next    = newNode;
+                pList->nodes++;
                 result = SUCCESS;
             } else {
                 printf("[ERROR] addNode() - Memory allocation failed.\n");
@@ -91,30 +86,29 @@ int addNode(LinkedList *ptrLinkedList, int position, Node node)
     return result;
 }
 
-int removeNode(LinkedList *ptrLinkedList, int position)
+int removeNode(LinkedList *pList, int position)
 {
     int  result, i, count;
     Node *prev, *delNode;
 
     result = FAILURE;
-    prev = delNode = NULL;
-    if (ptrLinkedList != NULL) {
-        if (isLinkedListEmpty(ptrLinkedList) == FALSE) {
-            count = ptrLinkedList->currentNodeCount;
+    if (pList != NULL) {
+        if (isListEmpty(pList) == FALSE) {
+            count = pList->nodes;
             if (position >= 0 && position < count) {   /* < count */  
-                prev = &(ptrLinkedList->header);
+                prev = &(pList->header);
                 for (i = 0; i < position; i++) {
-                    prev = prev->link;
+                    prev = prev->next;
                 }
-                delNode = prev->link;
-                prev->link = delNode->link;
+                delNode    = prev->next;
+                prev->next = delNode->next;
                 free(delNode);
-                ptrLinkedList->currentNodeCount--;
+                pList->nodes--;
                 result = SUCCESS;
             } else {
                 printf("[WARNING] removeNode() - The position [%d] is out of range.\n"
                        "Specify a position between 0 and %d.\n", 
-                       position, count);
+                       position, count-1);
             }
         } else {
             printf("[WARNING] removeNode() - The linked list is empty.\n");
@@ -124,26 +118,29 @@ int removeNode(LinkedList *ptrLinkedList, int position)
     return result;
 }
 
-Node *getLinkedListNode(LinkedList *ptrLinkedList, int position)
+Node *getNode(LinkedList *pList, int position)
 {
-    Node *prev, *retNode;
+    Node *prev, *node;
     int  i, count;
 
-    prev = retNode = NULL;
-    if (ptrLinkedList != NULL) {
-        if (isLinkedListEmpty(ptrLinkedList) == FALSE) {
-            count = ptrLinkedList->currentNodeCount;
+    if (pList != NULL) {
+        if (isListEmpty(pList) == FALSE) {
+            count = pList->nodes;
             if (position >= 0 && position < count) {   /* < count */  
-                prev = &(ptrLinkedList->header);
+                prev = &(pList->header);
                 for (i = 0; i <= position; i++) {
-                    prev = prev->link;
+                    prev = prev->next;
                 }
-                retNode = prev;
+                node = prev;
+            } else {
+                printf("[WARNING] getNode() - The position [%d] is out of range.\n"
+                       "Specify a position between 0 and %d.\n", 
+                       position, count-1);
             }
         } else {
-            printf("[WARNING] getLinkedListNode() - The linked list is empty.\n");
+            printf("[WARNING] getNode() - The linked list is empty.\n");
         }
     }
 
-    return retNode;
+    return node;
 }

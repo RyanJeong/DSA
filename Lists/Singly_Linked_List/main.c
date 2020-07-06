@@ -7,49 +7,49 @@ void printLinkedList(LinkedList *);
 
 int main(void)
 {
-    LinkedList *pLinkedList;
+    LinkedList *pList;
     Node       node;
 
-    pLinkedList = createLinkedList();
-    if (pLinkedList != NULL) {
-        printLinkedList(pLinkedList);
+    pList = createLinkedList();
+    if (pList != NULL) {
+        printLinkedList(pList);
         putchar('\n');
 
         node.data = 1;
-        addNode(pLinkedList, 0, node);
+        addNode(pList, 0, node);
         node.data = 2;
-        addNode(pLinkedList, 1, node);
+        addNode(pList, 1, node);
         node.data = 4;
-        addNode(pLinkedList, 2, node);
+        addNode(pList, 2, node);
         node.data = 8;
-        addNode(pLinkedList, 1, node);
+        addNode(pList, 1, node);
         node.data = 16;
-        addNode(pLinkedList, 0, node);
-        printLinkedList(pLinkedList);
+        addNode(pList, 0, node);
+        printLinkedList(pList);
         putchar('\n');
 
-        removeNode(pLinkedList, 0);
-        removeNode(pLinkedList, 1);
-        removeNode(pLinkedList, 2);
-        printLinkedList(pLinkedList);
+        removeNode(pList, 0);
+        removeNode(pList, 1);
+        removeNode(pList, 2);
+        printLinkedList(pList);
         putchar('\n');
 
-        deleteLinkedList(pLinkedList);
-        pLinkedList = NULL;
+        deleteLinkedList(pList);
+        pList = NULL;
     }
 
     return 0;
 }
 
-void printLinkedList(LinkedList *ptrLinkedList)
+void printLinkedList(LinkedList *pList)
 {
     int i, count;
 
-    if (ptrLinkedList != NULL) {
-        if (isLinkedListEmpty(ptrLinkedList) == FALSE) {
-            count = ptrLinkedList->currentNodeCount;
+    if (pList != NULL) {
+        if (isListEmpty(pList) == FALSE) {
+            count = pList->nodes;
             for (i = 0; i < count; i++) {
-                printf("[%3d] %d\n", i, getLinkedListNode(ptrLinkedList, i)->data);
+                printf("[%3d] %d\n", i, getNode(pList, i)->data);
             }
         } else {
             printf("[WARNING] printLinkedList() - The linked list is empty.\n");
