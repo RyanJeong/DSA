@@ -16,6 +16,7 @@ void       deleteLinkedList(LinkedList *);
 int        isListEmpty(LinkedList *);
 int        addNode(LinkedList *, int, Node);
 int        removeNode(LinkedList *, int);
+int        getListLength(LinkedList *);
 Node       *getNode(LinkedList *, int);
 
 #endif

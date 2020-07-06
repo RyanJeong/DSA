@@ -3,7 +3,7 @@
 #include "node.h"
 #include "linkedlist.h"
 
-void printLinkedList(LinkedList *);
+void printList(LinkedList *);
 
 int main(void)
 {
@@ -12,8 +12,11 @@ int main(void)
 
     pList = createLinkedList();
     if (pList != NULL) {
-        printLinkedList(pList);
+        printList(pList);
         putchar('\n');
+        /*
+         * [WARNING] printList() - The linked list is empty.
+         */
 
         node.data = 1;
         addNode(pList, 0, node);
@@ -25,14 +28,25 @@ int main(void)
         addNode(pList, 1, node);
         node.data = 16;
         addNode(pList, 0, node);
-        printLinkedList(pList);
+        printList(pList);
         putchar('\n');
+        /*
+         * [  0] 16
+         * [  1] 1
+         * [  2] 8
+         * [  3] 2
+         * [  4] 4
+         */
 
         removeNode(pList, 0);
         removeNode(pList, 1);
         removeNode(pList, 2);
-        printLinkedList(pList);
+        printList(pList);
         putchar('\n');
+        /*
+         * [  0] 1
+         * [  1] 2
+         */
 
         deleteLinkedList(pList);
         pList = NULL;
@@ -41,18 +55,18 @@ int main(void)
     return 0;
 }
 
-void printLinkedList(LinkedList *pList)
+void printList(LinkedList *pList)
 {
     int i, count;
 
     if (pList != NULL) {
         if (isListEmpty(pList) == FALSE) {
-            count = pList->nodes;
+            count = getListLength(pList);
             for (i = 0; i < count; i++) {
                 printf("[%3d] %d\n", i, getNode(pList, i)->data);
             }
         } else {
-            printf("[WARNING] printLinkedList() - The linked list is empty.\n");
+            printf("[WARNING] printList() - The linked list is empty.\n");
         }
     } 
 

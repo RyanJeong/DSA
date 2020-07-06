@@ -13,9 +13,10 @@ enum {
 
 CircularLinkedList *createCircularLinkedList(void);
 void               deleteCircularLinkedList(CircularLinkedList *);
-int                isCircularLinkedListEmpty(CircularLinkedList *);
+int                isListEmpty(CircularLinkedList *);
 int                addNode(CircularLinkedList *, int, Node);
 int                removeNode(CircularLinkedList *, int);
-Node               *getCircularLinkedListNode(CircularLinkedList *, int);
+int                getListLength(CircularLinkedList *);
+Node               *getNode(CircularLinkedList *, int);
 
 #endif

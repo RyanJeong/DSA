@@ -3,12 +3,12 @@
 
 typedef struct node {
     int         data;
-    struct node *link;
+    struct node *next;
 } Node;
 
 /* with head pointer to node */
 typedef struct {
-    int  currentNodeCount;
+    int  nodes;
     Node *head;
 } CircularLinkedList;
 
