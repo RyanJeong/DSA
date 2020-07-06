@@ -2,25 +2,25 @@
 
 #include "arraylist.h"
 
-void printArrayList(ArrayList *);
+void printList(ArrayList *);
 
 int main(void)
 {
-    ArrayList *pArrayList;
+    ArrayList *pList;
 
-    pArrayList = createArrayList(6);
-    if (pArrayList != NULL) {
+    pList = createArrayList(6);
+    if (pList != NULL) {
         ArrayListNode node;
 
         node.data = 1;
-        addNode(pArrayList, 0, node);
+        addNode(pList, 0, node);
         node.data = 2;
-        addNode(pArrayList, 1, node);
+        addNode(pList, 1, node);
         node.data = 0;
-        addNodeFirst(pArrayList, node);
+        addNodeFirst(pList, node);
         node.data = 4;
-        addNodeLast(pArrayList, node);
-        printArrayList(pArrayList);
+        addNodeLast(pList, node);
+        printList(pList);
 /*
         Output:
         Maximum number of nodes: 6
@@ -33,8 +33,8 @@ int main(void)
         [index:   5], EMPTY
 */
 
-        removeNode(pArrayList, 1);
-        printArrayList(pArrayList);
+        removeNode(pList, 1);
+        printList(pList);
 /*
         Maximum number of nodes: 6
         Current number of nodes: 3
@@ -46,12 +46,12 @@ int main(void)
         [index:   5], EMPTY
 */
         node.data = 5;
-        addNodeFirst(pArrayList, node);
+        addNodeFirst(pList, node);
         node.data = 7;
-        addNodeLast(pArrayList, node);
+        addNodeLast(pList, node);
         node.data = 9;
-        addNode(pArrayList, 3, node);
-        printArrayList(pArrayList);
+        addNode(pList, 3, node);
+        printList(pList);
 /*
         Maximum number of nodes: 6
         Current number of nodes: 6
@@ -63,8 +63,8 @@ int main(void)
         [index:   5], 7
 */
 
-        removeAll(pArrayList);
-        printArrayList(pArrayList);
+        removeAll(pList);
+        printList(pList);
 /*
         Maximum number of nodes: 6
         Current number of nodes: 0
@@ -76,27 +76,27 @@ int main(void)
         [index:   5], EMPTY
 */
 
-        deleteArrayList(pArrayList); 
+        deleteArrayList(pList); 
     }
 
     return 0;
 }
 
-void printArrayList(ArrayList *ptrArrayList)
+void printList(ArrayList *pList)
 {
-    int i, count, maxCount;
+    int i, len, cap;
 
-    if (ptrArrayList != NULL) {
-        count    = getArrayListLength(ptrArrayList);
-        maxCount = getArrayListCapacity(ptrArrayList);
+    if (pList != NULL) {
+        len = getListLength(pList);
+        cap = getListCapacity(pList);
         printf("Maximum number of nodes: %d\n"
                "Current number of nodes: %d\n", 
-               ptrArrayList->maxNodeCount,
-               ptrArrayList->currentNodeCount);
-        for (i = 0; i < count; i++) {
-            printf("[index: %3d], %d\n", i, getNode(ptrArrayList, i)->data);
+               pList->maxNodes,
+               pList->nodes);
+        for (i = 0; i < len; i++) {
+            printf("[index: %3d], %d\n", i, getNode(pList, i)->data);
         }
-        while (i < maxCount) {
+        while (i < cap) {
             printf("[index: %3d], EMPTY\n", i++);
         }
     } else {

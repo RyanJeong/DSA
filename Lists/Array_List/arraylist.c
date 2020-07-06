@@ -6,21 +6,21 @@
 
 ArrayList *createArrayList(int size)
 {
-    ArrayList *ptrArrayList;
+    ArrayList *pList;
 
-    ptrArrayList = NULL;
+    pList = NULL;
     if (size > 0) {
-        ptrArrayList = (ArrayList *) malloc(sizeof(ArrayList));
-        if (ptrArrayList != NULL) {
-            ptrArrayList->maxNodeCount     = size;
-            ptrArrayList->currentNodeCount = 0;
-            ptrArrayList->ptrNode          = (ArrayListNode *) malloc(sizeof(ArrayListNode) * size);
-            if (ptrArrayList->ptrNode != NULL) {
-                memset(ptrArrayList->ptrNode, 0, sizeof(ArrayListNode) * size);
+        pList = (ArrayList *) malloc(sizeof(ArrayList));
+        if (pList != NULL) {
+            pList->maxNodes = size;
+            pList->nodes    = 0;
+            pList->pNode    = (ArrayListNode *) malloc(sizeof(ArrayListNode) * size);
+            if (pList->pNode != NULL) {
+                memset(pList->pNode, 0, sizeof(ArrayListNode) * size);
             } else {
                 printf("[ERROR] Memory allocation failed.\n");
-                free(ptrArrayList);
-                ptrArrayList = NULL;
+                free(pList);
+                pList = NULL;
             }
         } else {    /* malloc returns NULL if there is insufficient memory available */
             printf("[ERROR] Memory allocation failed.\n");
@@ -29,61 +29,59 @@ ArrayList *createArrayList(int size)
         printf("[ERROR] Maximum number of nodes must be greater than 0.\n");
     }
 
-    return ptrArrayList;
+    return pList;
 }
 
-void deleteArrayList(ArrayList *ptrArrayList)
+void deleteArrayList(ArrayList *pList)
 {
-    if (ptrArrayList != NULL) {
-        free(ptrArrayList->ptrNode);
-        free(ptrArrayList);
+    if (pList != NULL) {
+        free(pList->pNode);
+        free(pList);
     }
     
     return;
 }
 
-int isArrayListFull(ArrayList *ptrArrayList)
+int isListFull(ArrayList *pList)
 {
     int result;
     
-    result = FALSE;
-    if (ptrArrayList != NULL) {
-        if (ptrArrayList->currentNodeCount == ptrArrayList->maxNodeCount) {
-            result = TRUE;
-        }
+    if (pList != NULL && pList->nodes == pList->maxNodes) {
+        result = TRUE;
+    } else {
+        result = FALSE;
     }
 
     return result;
 }
 
-int isArrayListEmpty(ArrayList *ptrArrayList)
+int isListEmpty(ArrayList *pList)
 {
     int result;
 
-    result = FALSE;
-    if (ptrArrayList != NULL) {
-        if (ptrArrayList->currentNodeCount == 0) {
-            result = TRUE;
-        }
+    if (pList != NULL && pList->nodes == 0) {
+        result = TRUE;
+    } else {
+        result = FALSE;
     }
 
     return result;
 }
 
-int addNode(ArrayList *ptrArrayList, int position, ArrayListNode node)
+int addNode(ArrayList *pList, int position, ArrayListNode node)
 {
     int result, i, count;
     
     result = FAILURE;
-    if (ptrArrayList != NULL) {
-        count = getArrayListLength(ptrArrayList);
-        if (isArrayListFull(ptrArrayList) == FALSE) {
+    if (pList != NULL) {
+        count = getListLength(pList);
+        if (isListFull(pList) == FALSE) {
             if (position >= 0 && position <= count) {   /* <= count */
                 for (i = count-1; i >= position; i--) {
-                    ptrArrayList->ptrNode[i+1] = ptrArrayList->ptrNode[i];
+                    pList->pNode[i+1] = pList->pNode[i];
                 }
-                ptrArrayList->ptrNode[position] = node;
-                ptrArrayList->currentNodeCount++;
+                pList->pNode[position] = node;
+                pList->nodes++;
                 result = SUCCESS;
             } else {
                 printf("[ERROR] The position [%d] is out of range.\n"
@@ -98,31 +96,31 @@ int addNode(ArrayList *ptrArrayList, int position, ArrayListNode node)
     return result;
 }
 
-int addNodeFirst(ArrayList *ptrArrayList, ArrayListNode node)
+int addNodeFirst(ArrayList *pList, ArrayListNode node)
 {
     
-    return addNode(ptrArrayList, 0, node);
+    return addNode(pList, 0, node);
 }
 
-int addNodeLast(ArrayList *ptrArrayList, ArrayListNode node)
+int addNodeLast(ArrayList *pList, ArrayListNode node)
 {
 
-    return addNode(ptrArrayList, getArrayListLength(ptrArrayList), node);
+    return addNode(pList, getListLength(pList), node);
 }
 
-int removeNode(ArrayList *ptrArrayList, int position)
+int removeNode(ArrayList *pList, int position)
 {
     int result, i, count;
 
     result = FAILURE;
-    if (ptrArrayList != NULL) {
-        count = getArrayListLength(ptrArrayList);
-        if (isArrayListEmpty(ptrArrayList) == FALSE) {
+    if (pList != NULL) {
+        count = getListLength(pList);
+        if (isListEmpty(pList) == FALSE) {
             if (position >= 0 && position < count) {   /* < count */
                 for (i = position; i < count-1; i++) {
-                    ptrArrayList->ptrNode[i] = ptrArrayList->ptrNode[i+1];
+                    pList->pNode[i] = pList->pNode[i+1];
                 }
-                ptrArrayList->currentNodeCount--;
+                pList->nodes--;
                 result = SUCCESS;
             } else {
                 printf("[ERROR] The position [%d] is out of range.\n"
@@ -137,50 +135,52 @@ int removeNode(ArrayList *ptrArrayList, int position)
     return result;
 }
 
-void removeAll(ArrayList *ptrArrayList)
+void removeAll(ArrayList *pList)
 {
-    if (ptrArrayList != NULL) {
-        ptrArrayList->currentNodeCount = 0;
+    if (pList != NULL) {
+        pList->nodes = 0;
     }
 
     return;
 }
 
-int getArrayListLength(ArrayList *ptrArrayList)
+int getListLength(ArrayList *pList)
 {
     int result;
     
-    result = 0;
-    if (ptrArrayList != NULL) {
-        result = ptrArrayList->currentNodeCount;
+    if (pList != NULL) {
+        result = pList->nodes;
+    } else {
+        result = 0;
     }
 
     return result;
 }
 
-int getArrayListCapacity(ArrayList *ptrArrayList)
+int getListCapacity(ArrayList *pList)
 {
     int result;
 
-    result = 0;
-    if (ptrArrayList != NULL) {
-        result = ptrArrayList->maxNodeCount;
+    if (pList != NULL) {
+        result = pList->maxNodes;
+    } else {
+        result = 0;
     }
 
     return result;
 }
 
-ArrayListNode *getNode(ArrayList *ptrArrayList, int position)
+ArrayListNode *getNode(ArrayList *pList, int position)
 {
-    ArrayListNode *ptrNode;
+    ArrayListNode *pNode;
     int           count;
 
-    ptrNode = NULL;
-    if (ptrArrayList != NULL) {
-        count = getArrayListLength(ptrArrayList);
-        if (isArrayListEmpty(ptrArrayList) == FALSE) {
+    pNode = NULL;
+    if (pList != NULL) {
+        count = getListLength(pList);
+        if (isListEmpty(pList) == FALSE) {
             if (position >= 0 && position < count) {   /* < count */
-                ptrNode = &(ptrArrayList->ptrNode[position]);
+                pNode = &(pList->pNode[position]);
             } else {
                 printf("[ERROR] The position [%d] is out of range.\n"
                        "Specify a position between 0 and %d.\n", 
@@ -191,5 +191,5 @@ ArrayListNode *getNode(ArrayList *ptrArrayList, int position)
         }
     }
 
-    return ptrNode;
+    return pNode;
 }
