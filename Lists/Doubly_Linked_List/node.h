@@ -4,12 +4,13 @@
 typedef struct node {
     int         data;
     struct node *next;
+    struct node *prev;
 } Node;
 
-/* with header node */
+/* with node header */
 typedef struct {
-    int  nodes;
+    int  nodes; /* current number of nodes */
     Node header;
-} CircularLinkedList;
+} DoublyLinkedList;
 
 #endif
