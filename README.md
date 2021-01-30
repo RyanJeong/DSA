@@ -1,10 +1,6 @@
 # Data Structures and Algorithm Analysis Edition 3.2 (C++ Version)
 
-* Copyright © 2009-2012 by Clifford A. Shaffer.<br>
-
-This document is made freely available in PDF form for educational and other non-commercial use. You may make copies of this file and redistribute in electronic form without charge. You may extract portions of this document provided that the front page, including the title, author, and this notice are included. Any commercial use of this document requires the written consent of the author. The author can be reached at shaffer@cs.vt.edu.<br>
-If you wish to have a printed version of this document, print copies are published by Dover Publications(see http://store.doverpublications.com/048648582x.html).<br>
-Further information about this text is available at http://people.cs.vt.edu/~shaffer/Book/.<br>
+### Copyright © 2009-2012 by Clifford A. Shaffer.<br>
 
 * Contents<br>
     * [[WIP]Data Structures and Algorithms](./data_structure_and_alg)
